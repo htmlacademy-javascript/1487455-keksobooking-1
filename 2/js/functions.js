@@ -22,34 +22,14 @@ const extractNumbers = (string) => {
 };
 
 const fillString = (string, minLength, extraSymbols) => {
-  if (string >= minLength) {
-    return string;
+  while (string.length < minLength) {
+    string = extraSymbols.slice(0, minLength - string.length) + string;
   }
 
-  const lengthGap = minLength - string.length;
-
-  if (extraSymbols.length >= lengthGap) {
-    return extraSymbols.slice(0, lengthGap) + string;
-  }
-
-  let result = extraSymbols.slice(0, lengthGap % extraSymbols.length);
-
-  while (result.length < lengthGap) {
-    result += extraSymbols;
-  }
-
-  return result + string;
+  return string;
 };
 
-const isNumberNonNegative = (number) => typeof(number) === 'number' || number >= 0;
-
-/* написал декларативным способом чтобы иметь возможность использовать объект arguments */
-function getRandomNumber (min, max, digits) {
-  if (min >= max || !Array.from(arguments).every((argument) => isNumberNonNegative(argument))) {
-    return NaN;
-  }
-  return Number((Math.random() * (max - min) + min).toFixed(digits));
-}
+const getRandomNumber = (min, max, digits) => +(Math.random() * (max - min) + min).toFixed(digits);
 
 isPalindrome();
 extractNumbers();
