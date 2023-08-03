@@ -1,7 +1,4 @@
-import { fillString, getRandomNumber, getRandomArrayElement, getRandomArraySlice } from './utils.js';
-
-const ID_MIN_LENGTH = 2;
-const ID_FILL_STRING = '0';
+import { getRandomNumber, getRandomArrayElement, getRandomArraySlice } from './utils.js';
 
 const TITLE_DEFAULT = 'lorem ipsum dolor sit amet';
 
@@ -41,7 +38,7 @@ const createAnnouncementById = (id) => {
 
   return {
     author: {
-      avatar: `img/avatars/user${fillString(id.toString(), ID_MIN_LENGTH, ID_FILL_STRING)}.png`
+      avatar: `img/avatars/user${id.toString().padStart(2, '0')}.png`
     },
     offer: {
       title: TITLE_DEFAULT,
@@ -66,6 +63,6 @@ const createAnnouncementById = (id) => {
   };
 };
 
-const createAnnouncements = (quantity) => Array.from({length: quantity}, (_, id) => createAnnouncementById(id));
+const createAnnouncements = (quantity) => Array.from({length: quantity}, (_, id) => createAnnouncementById(id + 1));
 
 export { createAnnouncements };
