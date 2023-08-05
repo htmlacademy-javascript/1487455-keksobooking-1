@@ -27,7 +27,7 @@ const createFeaturesFragment = (features) => {
   return featuresFragment;
 };
 
-const createPhotosFragment = (photos) => {
+const createPhotoFragment = (photos) => {
   const photosFragment = document.createDocumentFragment();
   const photoTemplate = '<img class="popup__photo" width="45" height="40" alt="Фотография жилья">';
 
@@ -40,85 +40,71 @@ const createPhotosFragment = (photos) => {
   return photosFragment;
 };
 
+const editImageSource = (element, url) => {
+  if (!url) {
+    element.remove();
+  } else {
+    element.src = url;
+  }
+};
+
+const editTextContent = (element, content) => {
+  if (!content) {
+    element.remove();
+  } else {
+    element.textContent = content;
+  }
+};
+
+const editFirstChildTextContent = (parent, content) => {
+  if (!content) {
+    parent.remove();
+  } else {
+    parent.firstChild.textContent = `${content} `;
+  }
+};
+
+const editListElement = (parent, content, handler) => {
+  if (!content && !content.length) {
+    parent.remove();
+  } else {
+    parent.replaceChildren(handler(content));
+  }
+};
+
+const editCapacityElement = (element, rooms, guests) => {
+  if (!rooms || !guests) {
+    element.remove();
+  } else {
+    element.textContent = `${rooms ? rooms : 0} комнаты для ${guests ? guests : 0} гостей`;
+  }
+};
+
+const editTimingElement = (element, checkin, checkout) => {
+  if (!checkin || !checkout) {
+    element.remove();
+  } else {
+    const checkinText = checkin ? `после ${checkin}` : 'в любое время';
+    const checkoutText = checkout ? `до ${checkout}` : 'в любое время';
+    element.textContent = `Заезд ${checkinText}, выезд ${checkoutText}`;
+  }
+};
+
 const createAdvertTemplate = ({author, offer}) => {
   const {avatar} = author;
   const {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos} = offer;
 
   const popup = popupTemplate.cloneNode(true);
-  const avatarElement = popup.querySelector('.popup__avatar');
-  const titleElement = popup.querySelector('.popup__title');
-  const addressElement = popup.querySelector('.popup__text--address');
-  const priceElement = popup.querySelector('.popup__text--price');
-  const typeElement = popup.querySelector('.popup__type');
-  const capacityElement = popup.querySelector('.popup__text--capacity');
-  const timeElement = popup.querySelector('.popup__text--time');
-  const featuresElement = popup.querySelector('.popup__features');
-  const descriptionElement = popup.querySelector('.popup__description');
-  const photosElement = popup.querySelector('.popup__photos');
-
-  avatarElement.src = avatar;
-
-  if (avatar) {
-    avatarElement.src = avatar;
-  } else {
-    avatarElement.remove();
-  }
-
-  if (title) {
-    titleElement.textContent = title;
-  } else {
-    titleElement.remove();
-  }
-
-  if (address) {
-    addressElement.textContent = address;
-  } else {
-    addressElement.remove();
-  }
-
-  if (price) {
-    priceElement.firstChild.textContent = `${price} `;
-  } else {
-    priceElement.remove();
-  }
-
-  if (type) {
-    typeElement.textContent = propertyTypeTitles[type];
-  } else {
-    typeElement.remove();
-  }
-
-  if (rooms || guests) {
-    capacityElement.textContent = `${rooms ? rooms : 0} комнаты для ${guests ? guests : 0} гостей`;
-  } else {
-    capacityElement.remove();
-  }
-
-  if (checkin || checkout) {
-    const checkinText = checkin ? `после ${checkin}` : 'в любое время';
-    const checkoutText = checkout ? `до ${checkout}` : 'в любое время';
-    timeElement.textContent = `Заезд ${checkinText}, выезд ${checkoutText}`;
-  } else {
-    timeElement.remove();
-  }
-
-  if (features && features.length) {
-    featuresElement.replaceChildren(createFeaturesFragment(features));
-  } else {
-    featuresElement.remove();
-  }
-
-  if (description) {
-    descriptionElement.textContent = description;
-  } else {
-    descriptionElement.remove();
-  }
-
-  if (photos && photos.length) {
-    photosElement.replaceChildren(createPhotosFragment(photos));
-  } else {
-    photosElement.remove();
-  }
+  editImageSource(popup.querySelector('.popup__avatar'), avatar);
+  editTextContent(popup.querySelector('.popup__title'), title);
+  editTextContent(popup.querySelector('.popup__text--address'), address);
+  editFirstChildTextContent(popup.querySelector('.popup__text--price'), price);
+  editTextContent(popup.querySelector('.popup__type'), propertyTypeTitles[type]);
+  editCapacityElement(popup.querySelector('.popup__text--capacity'), rooms, guests);
+  editTimingElement(popup.querySelector('.popup__text--time'), checkin, checkout);
+  editListElement(popup.querySelector('.popup__features'), features, createFeaturesFragment);
+  editTextContent(popup.querySelector('.popup__description'), description);
+  editListElement(popup.querySelector('.popup__photos'), photos, createPhotoFragment);
 
   return popup;
 };
