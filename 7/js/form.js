@@ -1,17 +1,36 @@
-const formElements = document.querySelectorAll('.js-form-element');
-
 const adForm = document.querySelector('.ad-form');
-const mapFilters = document.querySelector('.map__filters');
+const adFormElements = adForm.querySelectorAll('fieldset');
 const priceSlider = document.querySelector('.ad-form__slider');
 
-const disableForms = () => {
-  adForm.classList.add('ad-form--disabled');
-  mapFilters.classList.add('map__filters--disabled');
-  priceSlider.classList.add('hidden');
+const mapFilters = document.querySelector('.map__filters');
+const mapFiltersElements = mapFilters.querySelectorAll('fieldset, select');
 
+const setFormElementsState = (formElements, state) => {
   formElements.forEach((element) => {
-    element.disabled = true;
+    element.disabled = state;
   });
 };
 
-export { disableForms };
+const disableAdForm = () => {
+  adForm.classList.add('ad-form--disabled');
+  priceSlider.classList.add('hidden');
+  setFormElementsState(adFormElements, true);
+};
+
+const enableAdForm = () => {
+  adForm.classList.remove('ad-form--disabled');
+  priceSlider.classList.remove('hidden');
+  setFormElementsState(adFormElements, false);
+};
+
+const disableMapFilters = () => {
+  mapFilters.classList.add('map__filters--disabled');
+  setFormElementsState(mapFiltersElements, true);
+};
+
+const enableMapFilters = () => {
+  mapFilters.classList.remove('map__filters--disabled');
+  setFormElementsState(mapFiltersElements, false);
+};
+
+export { disableAdForm, enableAdForm, disableMapFilters, enableMapFilters };
