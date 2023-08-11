@@ -1,4 +1,4 @@
-import { initPriceSlider } from './price-slider.js';
+import { initPriceSlider, setPriceSliderValue } from './price-slider.js';
 
 const minPriceSettings = {
   palace: 10000,
@@ -37,6 +37,10 @@ const onPropertyTypeFieldChange = () => {
   priceField.dispatchEvent(inputEvent);
 };
 
+const onPriceFieldInput = (event) => {
+  setPriceSliderValue(event.target.value);
+};
+
 const initFormFieldSyncronizer = () => {
   priceField.min = minPriceSettings[propertyTypeField.value];
   priceField.placeholder = minPriceSettings[propertyTypeField.value];
@@ -44,6 +48,7 @@ const initFormFieldSyncronizer = () => {
   timeInField.addEventListener('change', onTimeInFieldChange);
   timeOutField.addEventListener('change', onTimeOutFieldChange);
   propertyTypeField.addEventListener('change', onPropertyTypeFieldChange);
+  priceField.addEventListener('change', onPriceFieldInput);
 };
 
 export { initFormFieldSyncronizer };
