@@ -28,12 +28,12 @@ const getCapacityMessage = () => {
   return `Если комнат ${roomsField.value}, максимум гостей - ${maxGuests}`;
 };
 
-const initAddFormValidator = () => {
+const initAdFormValidator = () => {
   pristine.addValidator(priceField, validatePrice, getPriceMessage);
   pristine.addValidator(capacityField, validateCapacity, getCapacityMessage);
 };
 
-const validateAddForm = () => pristine.validate();
-const resetAddFormValidator = () => pristine.reset();
+const validateAdForm = () => pristine.validate();
+const resetAdFormValidator = () => pristine.reset();
 
-export { initAddFormValidator, validateAddForm, resetAddFormValidator };
+export { initAdFormValidator, validateAdForm, resetAdFormValidator };

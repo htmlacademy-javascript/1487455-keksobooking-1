@@ -47,7 +47,7 @@ const filterByFeatures = (advertFeatures) => {
   return chosenFeatures.every((feature) => advertFeatures.includes(feature));
 };
 
-const filterAdverts = (adverts) => adverts.slice().filter(({offer}) =>
+const filterAdverts = (adverts) => adverts.filter(({offer}) =>
   filterByHousingType(offer.type) &&
   filterByPrice(offer.price) &&
   filterByRooms(offer.rooms) &&

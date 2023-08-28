@@ -1,4 +1,4 @@
-import { initAddFormValidator, validateAddForm, resetAddFormValidator } from './validate-form.js';
+import { initAdFormValidator, validateAdForm, resetAdFormValidator } from './validate-form.js';
 import { initFormFieldSynchronizer } from './sync-form-fields.js';
 import { showNotification } from '../utils/notifications.js';
 import { initPriceSlider } from './price-slider.js';
@@ -86,28 +86,28 @@ const setImagesPreview = ({target}) => {
 
 const onImagesFieldChange = (event) => setImagesPreview(event);
 
-const onAddFormSubmit = (event) => {
+const onAdFormSubmit = (event) => {
   event.preventDefault();
-  if (validateAddForm()) {
+  if (validateAdForm()) {
     sendData(SEND_DATA_URL, onSendDataSuccess, onSendDataError, new FormData(event.target));
   }
 };
 
-const onAddFormReset = () => {
+const onAdFormReset = () => {
   resetAvatarPreview();
   resetImagesPreview();
-  resetAddFormValidator();
+  resetAdFormValidator();
   setTimeout(() => resetMap());
 };
 
-const initAddFrom = () => {
-  initAddFormValidator();
+const initAdForm = () => {
+  initAdFormValidator();
   initPriceSlider();
   initFormFieldSynchronizer();
   avatarField.addEventListener('change', onAvatarFieldChange);
   imagesField.addEventListener('change', onImagesFieldChange);
-  adForm.addEventListener('submit', onAddFormSubmit);
-  adForm.addEventListener('reset', onAddFormReset);
+  adForm.addEventListener('submit', onAdFormSubmit);
+  adForm.addEventListener('reset', onAdFormReset);
 };
 
-export { initAddFrom };
+export { initAdForm };

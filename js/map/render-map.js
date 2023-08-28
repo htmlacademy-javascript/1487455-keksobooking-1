@@ -2,7 +2,7 @@ import { getData} from '../utils/data.js';
 import { createAdvert } from './create-advert.js';
 import { disableAdForm, enableAdForm, disableMapFilters, enableMapFilters } from '../utils/form-states.js';
 import { showNotification } from '../utils/notifications.js';
-import { initAddFrom } from '../add-form/add-form.js';
+import { initAdForm } from '../ad-form/ad-form.js';
 import { filterAdverts, initFilters } from './filter-adverts.js';
 
 const TILE_LAYER_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -87,7 +87,7 @@ const onGetDataSuccess = (adverts) => {
 const onGetDataError = () => showNotification(GET_DATA_ERROR_STATUS, GET_DATA_ERROR_MESSAGE, GET_DATA_ERROR_BUTTON_TEXT);
 
 const onMapLoad = () => {
-  initAddFrom();
+  initAdForm();
   enableAdForm();
   getData(GET_DATA_URL, onGetDataSuccess, onGetDataError);
 };

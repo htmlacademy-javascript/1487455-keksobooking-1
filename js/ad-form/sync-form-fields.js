@@ -31,9 +31,11 @@ const onTimeOutFieldChange = () => {
 
 const onPropertyTypeFieldChange = () => {
   const minValue = minPriceSettings[propertyTypeField.value];
+  const priceFieldValue = priceField.value;
   priceField.min = minValue;
   priceField.placeholder = minValue;
   initPriceSlider();
+  priceField.value = priceFieldValue;
   priceField.dispatchEvent(inputEvent);
 };
 
@@ -43,6 +45,7 @@ const onPriceFieldInput = (event) => {
 
 const initFormFieldSynchronizer = () => {
   priceField.min = minPriceSettings[propertyTypeField.value];
+  priceField.value = minPriceSettings[propertyTypeField.value];
   priceField.placeholder = minPriceSettings[propertyTypeField.value];
   roomsField.addEventListener('change', onRoomsFieldChange);
   timeInField.addEventListener('change', onTimeInFieldChange);
